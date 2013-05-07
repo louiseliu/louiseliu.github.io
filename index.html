@@ -76,14 +76,65 @@
   <header>
     
   
-    <h1 class="title"><a href="/2013/05/07/hello-world/">Hello World</a></h1>
+    <h1 class="title"><a href="/2013/05/07/hello-world/">git 使用</a></h1>
   
 
     
   </header>
   <section class="entry">
     
-      <p>Welcome to <a href="http://zespia.tw/hexo">Hexo</a>! This is your very first post. Check <a href="http://zespia.tw/hexo/docs">documentation</a> to learn how to use.</p>
+      <h1>1. 如何生成key</h1>
+<p><a href="https://help.github.com/articles/generating-ssh-keys">https://help.github.com/articles/generating-ssh-keys</a></p>
+<h1>2.0</h1>
+<p>常用命令：</p>
+<p>-1. 下载安装git bash
+    <a href="http://code.google.com/p/msysgit/">http://code.google.com/p/msysgit/</a></p>
+<ol>
+<li><p>设置用户信息：
+  git config --global user.email &quot;xxx&quot;
+  git config --global user.name &quot;xxx&quot;</p>
+</li>
+<li><p>检出一个项目：
+  git clone gitxxx</p>
+</li>
+<li><p>导入项目到eclipse
+ 2.1 安装EGit</p>
+</li>
+<li><p>创建本地branch
+  git branch newfeature</p>
+</li>
+<li><p>切换到新创建的branch
+  git checkout newfeature</p>
+</li>
+<li><p>提交所做修改
+  5.1 获取修改的内容</p>
+<pre><code> <span class="title">git</span> status
+</code></pre>
+<p>  5.2 添加到commit</p>
+<pre><code> <span class="title">git</span> add file1 file2
+</code></pre>
+<p>  5.3 提交修改</p>
+<pre><code> git <span class="operator"><span class="keyword">commit</span> -m <span class="string">"message"</span>
+</code></pre>
+</li>
+<li><p>回滚到指定版本
+  6.1 回滚到head</p>
+<pre><code>   <span class="comment">git</span> <span class="comment">reset</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">hard</span> <span class="comment">HEAD
+</code></pre>
+<p>  6.2 回滚到指定版本</p>
+<pre><code>   <span class="comment">通过git</span> <span class="comment">log查询各次提交的版本</span>
+   <span class="comment">git</span> <span class="comment">reset</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">hard</span> <span class="comment">98507c0010693fa1e122daae5ac32d593258c7ce
+</code></pre>
+<p>  6.3 回滚指定文件</p>
+<pre><code>   git checkout HEAD <span class="keyword">file</span>/<span class="keyword">to</span>/restore
+</code></pre>
+</li>
+<li><p>merge到本地master
+  git checkout master
+  git merge newfeature</p>
+</li>
+</ol>
+<p><a href="http://www.oschina.net/question/54100_55379">http://www.oschina.net/question/54100_55379</a></p>
 
     
   </section>
