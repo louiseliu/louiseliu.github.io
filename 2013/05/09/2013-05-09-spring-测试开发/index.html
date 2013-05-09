@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>2013-05-09 spring 测试开发 | 子鱼</title>
+  <title>spring 测试开发 | 子鱼</title>
   <meta name="author" content="子鱼">
   
   <meta name="description" content="1 使用spring3.2，shiro作为权限管理的框架，在做junit单元测试时，遇到问题
@@ -125,12 +125,30 @@ public class WebControllerTest {
 		}
 	}
 
-}">
+}
+
+
+2 使用annotaion 方式来ComponentScan
+    @ComponentScan(basePackages = {&quot;com.github&quot;}, excludeFilters = {@ComponentScan.Filter(Configuration.class)} )
+
+在进行测试的时候会出现bean还是没有注入的问题。
+
+解决办法：在application-xx.xml文件中配置即有效
+
+&lt;context:component-scan base-package=&quot;com.github&quot;&gt;&lt;/context:component-scan&gt;
+
+
+猜想
+使用java的annotation替换xml中bean的配置，应该和xml 中bean的初始化顺序有关系
+
+spring项目测试流程
+1 单元测试
+2">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="2013-05-09 spring 测试开发"/>
+  <meta property="og:title" content="spring 测试开发"/>
   <meta property="og:site_name" content="子鱼"/>
 
   
@@ -209,7 +227,7 @@ public class WebControllerTest {
   <header>
     
   
-    <h1 class="title">2013-05-09 spring 测试开发</h1>
+    <h1 class="title">spring 测试开发</h1>
   
 
     
@@ -337,6 +355,24 @@ public class WebControllerTest {
 
 }
 </pre></td></tr></table></figure>
+
+<p>2 使用<code>annotaion</code> 方式来ComponentScan</p>
+<pre><code>    <span class="variable">@ComponentScan</span>(basePackages = {<span class="string">"com.github"</span>}, excludeFilters = {<span class="variable">@ComponentScan</span>.<span class="constant">Filter</span>(<span class="constant">Configuration</span>.<span class="keyword">class</span>)} )
+</code></pre>
+<p>在进行测试的时候会出现bean还是没有注入的问题。</p>
+<blockquote>
+<p>解决办法：在application-xx.xml文件中配置即有效</p>
+</blockquote>
+<pre><code><span class="tag">&lt;<span class="title">context:component-scan</span> <span class="attribute">base-package</span>=<span class="value">"com.github"</span>&gt;</span><span class="tag">&lt;/<span class="title">context:component-scan</span>&gt;</span>
+</code></pre>
+<blockquote>
+<p>猜想
+使用java的annotation替换xml中bean的配置，应该和xml 中bean的初始化顺序有关系</p>
+</blockquote>
+<p>spring项目测试流程</p>
+<p>1 单元测试</p>
+<p>2</p>
+
     
   </section>
   <footer>

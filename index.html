@@ -89,7 +89,7 @@
   <header>
     
   
-    <h1 class="title"><a href="/2013/05/09/2013-05-09-spring-测试开发/">2013-05-09 spring 测试开发</a></h1>
+    <h1 class="title"><a href="/2013/05/09/2013-05-09-spring-测试开发/">spring 测试开发</a></h1>
   
 
     
@@ -217,6 +217,24 @@
 
 }
 </pre></td></tr></table></figure>
+
+<p>2 使用<code>annotaion</code> 方式来ComponentScan</p>
+<pre><code>    <span class="variable">@ComponentScan</span>(basePackages = {<span class="string">"com.github"</span>}, excludeFilters = {<span class="variable">@ComponentScan</span>.<span class="constant">Filter</span>(<span class="constant">Configuration</span>.<span class="keyword">class</span>)} )
+</code></pre>
+<p>在进行测试的时候会出现bean还是没有注入的问题。</p>
+<blockquote>
+<p>解决办法：在application-xx.xml文件中配置即有效</p>
+</blockquote>
+<pre><code><span class="tag">&lt;<span class="title">context:component-scan</span> <span class="attribute">base-package</span>=<span class="value">"com.github"</span>&gt;</span><span class="tag">&lt;/<span class="title">context:component-scan</span>&gt;</span>
+</code></pre>
+<blockquote>
+<p>猜想
+使用java的annotation替换xml中bean的配置，应该和xml 中bean的初始化顺序有关系</p>
+</blockquote>
+<p>spring项目测试流程</p>
+<p>1 单元测试</p>
+<p>2</p>
+
     
   </section>
   <footer>
