@@ -3,8 +3,387 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2013 | 子鱼</title>
+  <title>子鱼</title>
   <meta name="author" content="子鱼">
+  
+  <meta name="description" content="GitHub Help
+
+      
+        
+          
+            Contact Support
+          
+        
+        Return to GitHub
+
+      
+    
+  
+
+
+
+  
+    
+
+      
+  
+    SSH
+    /
+    Generating SSH Keys
+  
+
+  
+    
+  
+    
+      
+      Search
+      
+    
+  
+
+  
+
+  Article last updated on 28-Jun-13
+
+
+
+  Generating SSH Keys
+
+  
+    
+        
+          
+            mac
+          
+        
+        
+          
+            windows
+          
+        
+        
+          
+            linux
+          
+        
+        
+          
+            all
+          
+        
+    
+  
+
+  
+      
+
+
+Skip this guide. Download our native app instead.
+Download GitHub for Windows
+
+
+
+
+
+If you have decided not to use the recommended HTTPS method, we can use SSH keys to establish a secure connection between your computer and GitHub. The steps below will walk you through generating an SSH key and then adding the public key to your GitHub account.
+
+
+
+Step 1: Check for SSH keys
+
+First, we need to check for existing ssh keys on your computer.  Open up TerminalTerminalGit Bashthe command line and run:
+
+cd ~/.ssh
+# Checks to see if there is a directory named &quot;.ssh&quot; in your user directory
+
+
+If it says &quot;No such file or directory&quot; go to step 2. Otherwise, you already have an existing keypair, and you can skip to step 3.
+
+
+Step 2: Generate a new SSH key
+
+To generate a new SSH key, enter the code below. We want the default settings so when asked to enter a file in which to save the key, just press enter.
+
+
+
+ssh-keygen -t rsa -C &quot;your_email@example.com&quot;
+# Creates a new ssh key, using the provided email as a label
+# Generating public/private rsa key pair.
+# Enter file in which to save the key (/Users/you/.ssh/id_rsa): [Press enter]
+
+
+
+
+
+
+ssh-keygen -t rsa -C &quot;your_email@example.com&quot;
+# Creates a new ssh key, using the provided email as a label
+# Generating public/private rsa key pair.
+# Enter file in which to save the key (/c/Users/you/.ssh/id_rsa): [Press enter]
+
+
+
+
+
+
+ssh-keygen -t rsa -C &quot;your_email@example.com&quot;
+# Creates a new ssh key, using the provided email as a label
+# Generating public/private rsa key pair.
+# Enter file in which to save the key (/home/you/.ssh/id_rsa):
+
+
+
+
+
+
+ssh-keygen -t rsa -C &quot;your_email@example.com&quot;
+# Creates a new ssh key using the provided email
+# Generating public/private rsa key pair.
+# Enter file in which to save the key (/your_home_path/.ssh/id_rsa):
+
+
+
+
+Now you need to enter a passphrase.
+
+
+
+Why do passphrases matter?
+
+
+Passwords aren&amp;#39;t very secure, you already know this. If you use one that&amp;#39;s easy to remember, it&amp;#39;s easier to guess or brute-force (try many options until one works). If you use one that&amp;#39;s random it&amp;#39;s hard to remember, and thus you&amp;#39;re more inclined to write the password down. Both of these are Very Bad Things™. This is why you&amp;#39;re using ssh keys.
+
+But using a key without a passphrase is basically the same as writing down that random password in a file on your computer. Anyone who gains access to your drive has gained access to every system you use that key with. This is also a Very Bad Thing™. The solution is obvious: add a passphrase.
+
+But I don&amp;#39;t want to enter a long passphrase every time I use the key!
+
+Neither do we! Thankfully, there&amp;#39;s a nifty little tool called ssh-agent that can save your passphrase securely so you don&amp;#39;t have to re-enter it. 
+If you&amp;#39;re on OSX Leopard or later, your keys can be saved in the system&amp;#39;s keychain to make your life even easier.
+Unfortunately, it takes a little work to get it up and running on Windows.
+Most linux installations will automatically start ssh-agent for you when you log in.
+Depending on your OS, ssh-agent may be automatically run for you when you log in.
+
+
+For more information about SSH key passphrases, check out our help guide.
+
+
+
+# Enter passphrase (empty for no passphrase): [Type a passphrase]
+# Enter same passphrase again: [Type passphrase again]
+
+
+Which should give you something like this:
+
+
+
+# Your identification has been saved in /Users/you/.ssh/id_rsa.
+# Your public key has been saved in /Users/you/.ssh/id_rsa.pub.
+# The key fingerprint is:
+# 01:0f:f4:3b:ca:85:d6:17:a1:7d:f0:68:9d:f0:a2:db your_email@example.com
+
+
+
+
+
+
+# Your identification has been saved in /c/Users/you/.ssh/id_rsa.
+# Your public key has been saved in /c/Users/you/.ssh/id_rsa.pub.
+# The key fingerprint is:
+# 01:0f:f4:3b:ca:85:d6:17:a1:7d:f0:68:9d:f0:a2:db your_email@example.com
+
+
+
+
+
+
+# Your identification has been saved in /home/you/.ssh/id_rsa.
+# Your public key has been saved in /home/you/.ssh/id_rsa.pub.
+# The key fingerprint is:
+# 01:0f:f4:3b:ca:85:d6:17:a1:7d:f0:68:9d:f0:a2:db your_email@example.com
+
+
+
+
+
+
+# Your identification has been saved in /your_home_path/.ssh/id_rsa.
+# Your public key has been saved in /your_home_path/.ssh/id_rsa.pub.
+# The key fingerprint is:
+# 01:0f:f4:3b:ca:85:d6:17:a1:7d:f0:68:9d:f0:a2:db your_email@example.com
+
+
+
+
+
+Step 3: Add your SSH key to GitHub
+
+
+
+Run the following code to copy the key to your clipboard.
+
+pbcopy &lt; ~/.ssh/id_rsa.pub
+# Copies the contents of the id_rsa.pub file to your clipboard
+
+
+
+
+Warning: it&amp;#39;s important to copy the key exactly without adding newlines or whitespace.  Thankfully the pbcopy command makes it easy to perform this setup perfectly.
+
+
+
+
+
+
+
+Run the following code to copy the key to your clipboard.
+
+clip &lt; ~/.ssh/id_rsa.pub
+# Copies the contents of the id_rsa.pub file to your clipboard
+
+
+
+
+
+
+
+
+Run the following code to copy the key to your clipboard.
+
+sudo apt-get install xclip
+# Downloads and installs xclip. If you don&amp;#39;t have apt-get, you might need to use another installer (like yum)
+
+xclip -sel clip &lt; ~/.ssh/id_rsa.pub
+# Copies the contents of the id_rsa.pub file to your clipboard
+
+
+
+
+
+
+
+
+Open the id_rsa.pub file with a text editor. This is your SSH key. Select all and copy to your clipboard.
+
+
+
+
+
+
+Go to your Account Settings
+
+
+Click &quot;SSH Keys&quot; in the left sidebar
+
+
+Click &quot;Add SSH key&quot;
+
+
+Paste your key into the &quot;Key&quot; field
+
+
+Click &quot;Add key&quot;
+
+
+Confirm the action by entering your GitHub password
+
+Step 4: Test everything out
+
+To make sure everything is working you&amp;#39;ll now SSH to GitHub. When you do this, you will be asked to authenticate this action using your password, which for this purpose is the passphrase you created earlier. Don&amp;#39;t change the git@github.com part. That&amp;#39;s supposed to be there. 
+
+ssh -T git@github.com
+# Attempts to ssh to github
+
+
+
+
+It&amp;#39;s possible that you&amp;#39;ll see this error message:
+
+...
+Agent admitted failure to sign using the key.
+debug1: No more authentication methods to try.
+Permission denied (publickey).
+
+
+This is a known problem with certain Linux distributions. For a resolution, see our help article.
+
+
+
+You may see this warning:
+
+# The authenticity of host &amp;#39;github.com (207.97.227.239)&amp;#39; can&amp;#39;t be established.
+# RSA key fingerprint is 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48.
+# Are you sure you want to continue connecting (yes/no)?
+
+
+Don&amp;#39;t worry, this is supposed to happen. Verify that the fingerprint matches the one here and type &quot;yes&quot;.
+
+# Hi username! You&amp;#39;ve successfully authenticated, but GitHub does not
+# provide shell access.
+
+
+If that username is correct, you&amp;#39;ve successfully set up your SSH key.  Don&amp;#39;t worry about the shell access thing, you don&amp;#39;t want that anyway.
+
+If you see &quot;access denied&quot; please consider using HTTPS instead of SSH. If you need SSH start at these instructions for diagnosing the issue.
+  
+
+
+  
+    
+    
+      
+        contact a human
+      
+    
+  
+
+
+
+      
+    
+  
+
+  
+    
+      
+        
+      
+      
+        © 2013 GitHub Inc. All rights reserved.
+      
+        
+            Terms of Service
+            Privacy
+            Security
+          
+    
+   
+
+    
+      var _gauges = _gauges || [];
+      (function() {
+        var t   = document.createElement(&amp;#39;script&amp;#39;);
+        t.type  = &amp;#39;text/javascript&amp;#39;;
+        t.async = true;
+        t.id    = &amp;#39;gauges-tracker&amp;#39;;
+        t.setAttribute(&amp;#39;data-site-id&amp;#39;, &amp;#39;4f4d4164f5a1f5651500026c&amp;#39;);
+        t.src = &amp;#39;//secure.gaug.es/track.js&amp;#39;;
+        var s = document.getElementsByTagName(&amp;#39;script&amp;#39;)[0];
+        s.parentNode.insertBefore(t, s);
+      })();
+    
+if (!NREUMQ.f) { NREUMQ.f=function() {
+NREUMQ.push([&quot;load&quot;,new Date().getTime()]);
+var e=document.createElement(&quot;script&quot;);
+e.type=&quot;text/javascript&quot;;
+e.src=((&quot;http:&quot;===document.location.protocol)?&quot;http:&quot;:&quot;https:&quot;) + &quot;//&quot; +
+  &quot;rpm-images.newrelic.com/42/eum/rum.js&quot;;
+document.body.appendChild(e);
+if(NREUMQ.a)NREUMQ.a();
+};
+NREUMQ.a=window.onload;window.onload=NREUMQ.f;
+};
+NREUMQ.push([&quot;nrfj&quot;,&quot;beacon-1.newrelic.com&quot;,&quot;5d46706dc7&quot;,&quot;1956352&quot;,&quot;J1gNEhMKXgpXQktYBAhHTAcTEVsFXlUXHxIMWBQ=&quot;,0,335,new Date().getTime(),&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;,&quot;&quot;]);">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -84,16 +463,11 @@
 
 </div></header>
     <section id="content" class="blog">
-      
-<h2 class="archive-title">2013</h2>
-
-
-  
-    <article class="post">
+      <article class="post">
   <header>
     
   
-    <h1 class="title"><a href="/2013/07/08/git-key/"></a></h1>
+    <h1 class="title"></h1>
   
 
     
@@ -490,593 +864,25 @@ NREUMQ.push([&quot;nrfj&quot;,&quot;beacon-1.newrelic.com&quot;,&quot;5d46706dc7
     
     <div class="clearfix"></div>
     
-      <div class="alignleft widget">
-        
+      <div class="widget">
         
           <time datetime="2013-07-08T06:15:54.000Z"><a href="/2013/07/08/git-key/">Jul 8 2013</a></time>
         
         
         
+        
       </div>
-      
-        <div class="alignright">
-          <a href="/2013/07/08/git-key/#more" class="more-link">Read More</a>
-        </div>
-      
     
     <div class="clearfix"></div>
   </footer>
 </article>
 
 
-  
-    <article class="post">
-  <header>
-    
-  
-    <h1 class="title"><a href="/2013/07/04/prod测试/"></a></h1>
-  
-
-    
-  </header>
-  <section class="entry">
-    
-      <p>2013.07.04
-正在直播的（宽版）：</p>
-<iframe width="960" height="500" src="http://www.duobei.com/apps/v1/cid/9535858286" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="border:none;display: block;" vspace="0"></iframe>
-2013.07.04正在直播的（窄版）：
-<iframe width="520" height="400" src="http://www.duobei.com/apps/v1/cid/9535858286" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="border:none;display: block;" vspace="0"></iframe>
-
-
-<p>即将开始的（宽版）：</p>
-<p><iframe width="960" height="500" src="http://www.duobei.com/apps/v1/cid/7207514430" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="border:none;display: block;" vspace="0"></iframe>
-即将开始的（窄版）：</p>
-<p><iframe width="520" height="400" src="http://www.duobei.com/apps/v1/cid/7207514430" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="border:none;display: block;" vspace="0"></iframe>
-正在直播的（宽版）：</p>
-<p><iframe width="960" height="500" src="http://www.duobei.com/apps/v1/cid/2566353305" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="border:none;display: block;" vspace="0"></iframe>
-正在直播的（窄版）：</p>
-<p><iframe width="520" height="400" src="http://www.duobei.com/apps/v1/cid/2566353305" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="border:none;display: block;" vspace="0"></iframe>
-直播转回放（宽版）：</p>
-<p><iframe width="960" height="500" src="http://www.duobei.com/apps/v1/cid/6875723328" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="border:none;display: block;" vspace="0"></iframe>
-直播转回放（窄版）：</p>
-<p><iframe width="520" height="400" src="http://www.duobei.com/apps/v1/cid/6875723328" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="border:none;display: block;" vspace="0"></iframe>
-直接嵌回放（宽版）：</p>
-<embed width="960" height="500" src="http://www.duobei.com/player/6875723328/d.swf" allowFullScreen="true" quality="high" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
-直接嵌回放（窄版）：
-<embed width="520" height="400" src="http://www.duobei.com/player/6875723328/d.swf" allowFullScreen="true" quality="high" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
-    
-  </section>
-  <footer>
-    
-    <div class="clearfix"></div>
-    
-      <div class="alignleft widget">
-        
-        
-          <time datetime="2013-07-04T02:43:02.000Z"><a href="/2013/07/04/prod测试/">Jul 4 2013</a></time>
-        
-        
-        
-      </div>
-      
-        <div class="alignright">
-          <a href="/2013/07/04/prod测试/#more" class="more-link">Read More</a>
-        </div>
-      
-    
-    <div class="clearfix"></div>
-  </footer>
-</article>
-
-
-  
-    <article class="post">
-  <header>
-    
-  
-    <h1 class="title"><a href="/2013/07/01/dev-960测试/"></a></h1>
-  
-
-    
-  </header>
-  <section class="entry">
-    
-      <iframe frameborder="0" height="500" hspace="0" marginheight="0" marginwidth="0" scrolling="no" src="http://dev.duobei.com/apps/v1/cid/9820535660" style="border:none;display: block;" vspace="0" width="960"></iframe>
-    
-  </section>
-  <footer>
-    
-    <div class="clearfix"></div>
-    
-      <div class="alignleft widget">
-        
-        
-          <time datetime="2013-07-01T12:44:56.000Z"><a href="/2013/07/01/dev-960测试/">Jul 1 2013</a></time>
-        
-        
-        
-      </div>
-      
-        <div class="alignright">
-          <a href="/2013/07/01/dev-960测试/#more" class="more-link">Read More</a>
-        </div>
-      
-    
-    <div class="clearfix"></div>
-  </footer>
-</article>
-
-
-  
-    <article class="post">
-  <header>
-    
-  
-    <h1 class="title"><a href="/2013/07/01/dev-520测试/"></a></h1>
-  
-
-    
-  </header>
-  <section class="entry">
-    
-      <iframe width="520" height="410" src="http://dev.duobei.com/apps/v1/cid/9820535660" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="border:none;display: block;" vspace="0"></iframe>
-    
-  </section>
-  <footer>
-    
-    <div class="clearfix"></div>
-    
-      <div class="alignleft widget">
-        
-        
-          <time datetime="2013-07-01T12:44:54.000Z"><a href="/2013/07/01/dev-520测试/">Jul 1 2013</a></time>
-        
-        
-        
-      </div>
-      
-        <div class="alignright">
-          <a href="/2013/07/01/dev-520测试/#more" class="more-link">Read More</a>
-        </div>
-      
-    
-    <div class="clearfix"></div>
-  </footer>
-</article>
-
-
-  
-    <article class="post">
-  <header>
-    
-  
-    <h1 class="title"><a href="/2013/07/01/dev-960-回放/"></a></h1>
-  
-
-    
-  </header>
-  <section class="entry">
-    
-      <embed src="http://dev.duobei.com/player/3224203540/d.swf" allowFullScreen="true" quality="high" width="960" height="490" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
-    
-  </section>
-  <footer>
-    
-    <div class="clearfix"></div>
-    
-      <div class="alignleft widget">
-        
-        
-          <time datetime="2013-07-01T12:44:50.000Z"><a href="/2013/07/01/dev-960-回放/">Jul 1 2013</a></time>
-        
-        
-        
-      </div>
-      
-        <div class="alignright">
-          <a href="/2013/07/01/dev-960-回放/#more" class="more-link">Read More</a>
-        </div>
-      
-    
-    <div class="clearfix"></div>
-  </footer>
-</article>
-
-
-  
-    <article class="post">
-  <header>
-    
-  
-    <h1 class="title"><a href="/2013/07/01/dev-520-回放/"></a></h1>
-  
-
-    
-  </header>
-  <section class="entry">
-    
-      <embed src="http://dev.duobei.com/player/3224203540/d.swf" allowFullScreen="true" quality="high" width="520" height="410" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
-    
-  </section>
-  <footer>
-    
-    <div class="clearfix"></div>
-    
-      <div class="alignleft widget">
-        
-        
-          <time datetime="2013-07-01T12:44:46.000Z"><a href="/2013/07/01/dev-520-回放/">Jul 1 2013</a></time>
-        
-        
-        
-      </div>
-      
-        <div class="alignright">
-          <a href="/2013/07/01/dev-520-回放/#more" class="more-link">Read More</a>
-        </div>
-      
-    
-    <div class="clearfix"></div>
-  </footer>
-</article>
-
-
-  
-    <article class="post">
-  <header>
-    
-  
-    <h1 class="title"><a href="/2013/06/28/test-duobei/">test duobei</a></h1>
-  
-
-    
-  </header>
-  <section class="entry">
-    
-      <iframe frameborder="0" height="500" hspace="0" marginheight="0" marginwidth="0" scrolling="no" src="http://www.duobei.com/apps/v1/cid/1468711262" style="border:none;display: block;" vspace="0" width="960"></iframe>
-    
-  </section>
-  <footer>
-    
-    <div class="clearfix"></div>
-    
-      <div class="alignleft widget">
-        
-        
-          <time datetime="2013-06-28T03:29:24.000Z"><a href="/2013/06/28/test-duobei/">Jun 28 2013</a></time>
-        
-        
-        
-      </div>
-      
-        <div class="alignright">
-          <a href="/2013/06/28/test-duobei/#more" class="more-link">Read More</a>
-        </div>
-      
-    
-    <div class="clearfix"></div>
-  </footer>
-</article>
-
-
-  
-    <article class="post">
-  <header>
-    
-  
-    <h1 class="title"><a href="/2013/06/24/test-for-ie/">test for IE</a></h1>
-  
-
-    
-  </header>
-  <section class="entry">
-    
-      <embed src="http://dev.duobei.com/player/7716513037/d.swf" allowFullScreen="true" quality="high" width="960" height="490" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
-    
-  </section>
-  <footer>
-    
-    <div class="clearfix"></div>
-    
-      <div class="alignleft widget">
-        
-        
-          <time datetime="2013-06-24T09:23:13.000Z"><a href="/2013/06/24/test-for-ie/">Jun 24 2013</a></time>
-        
-        
-        
-      </div>
-      
-        <div class="alignright">
-          <a href="/2013/06/24/test-for-ie/#more" class="more-link">Read More</a>
-        </div>
-      
-    
-    <div class="clearfix"></div>
-  </footer>
-</article>
-
-
-  
-    <article class="post">
-  <header>
-    
-  
-    <h1 class="title"><a href="/2013/05/09/H2-数据库使用/">spring 测试开发</a></h1>
-  
-
-    
-  </header>
-  <section class="entry">
-    
-      <h4>h2数据库使用</h4>
-<p>1 安装</p>
-<p>访问<a href="http://www.h2database.com/html/download.html"><a href="http://www.h2database.com/html/download.html">http://www.h2database.com/html/download.html</a></a>，下载最新版h2数据库</p>
-<p>配置环境变量</p>
-<pre><code>h2-<span class="number">1.3</span><span class="number">.171</span><span class="variable">.jar</span>  h2<span class="variable">.bat</span>  h2<span class="variable">.sh</span>  h2w<span class="variable">.bat</span>
-</code></pre>
-<p>在不同平台上执行相应脚本，启动H2 gui</p>
-<p>2 spring 对H2 数据库的支持</p>
-<blockquote>
-<p>为什么在项目中使用H2数据库</p>
-<p>主要是在测试代码中使用，使用内存数据库</p>
-</blockquote>
-<p>配置方式：</p>
-<p>两种方式：</p>
-<p>1 使用spring xml标签</p>
-<pre><code><span class="tag">&lt;<span class="title">jdbc:embedded-database</span> <span class="attribute">id</span>=<span class="value">"dataSource"</span> <span class="attribute">type</span>=<span class="value">"H2"</span>&gt;</span>
-        <span class="tag">&lt;<span class="title">jdbc:script</span> <span class="attribute">location</span>=<span class="value">"classpath:script/schema.sql"</span>/&gt;</span>
-    <span class="tag">&lt;/<span class="title">jdbc:embedded-database</span>&gt;</span>
-</code></pre>
-<blockquote>
-<p>缺点:</p>
-<p>没法指定dataSource的url</p>
-</blockquote>
-<p>2 使用dataSource</p>
-<pre><code class="lang-xml">    <span class="tag">&lt;<span class="title">beans</span> <span class="attribute">profile</span>=<span class="value">"test"</span>&gt;</span>
-         <span class="tag">&lt;<span class="title">context:property-placeholder</span> <span class="attribute">ignore-resource-not-found</span>=<span class="value">"true"</span>
-            <span class="attribute">location</span>=<span class="value">"classpath*:/application.properties,
-                        classpath*:/application.test.properties"</span> /&gt;</span>    
-
-
-        <span class="tag">&lt;<span class="title">bean</span> <span class="attribute">id</span>=<span class="value">"dataSource"</span> <span class="attribute">class</span>=<span class="value">"org.springframework.jdbc.datasource.SimpleDriverDataSource"</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"driverClass"</span> <span class="attribute">value</span>=<span class="value">"${jdbc.driver}"</span> /&gt;</span>
-            <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"url"</span> <span class="attribute">value</span>=<span class="value">"${jdbc.url}"</span> /&gt;</span>
-            <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"username"</span> <span class="attribute">value</span>=<span class="value">"${jdbc.username}"</span> /&gt;</span>
-            <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"password"</span> <span class="attribute">value</span>=<span class="value">"${jdbc.password}"</span> /&gt;</span>
-        <span class="tag">&lt;/<span class="title">bean</span>&gt;</span>
-
-
-        <span class="tag">&lt;<span class="title">jdbc:initialize-database</span> <span class="attribute">data-source</span>=<span class="value">"dataSource"</span> <span class="attribute">ignore-failures</span>=<span class="value">"ALL"</span>&gt;</span>
-            <span class="tag">&lt;<span class="title">jdbc:script</span> <span class="attribute">location</span>=<span class="value">"classpath:sql/h2/schema.sql"</span> /&gt;</span>
-            <span class="tag">&lt;<span class="title">jdbc:script</span> <span class="attribute">location</span>=<span class="value">"classpath:data/h2/import-data.sql"</span> <span class="attribute">encoding</span>=<span class="value">"UTF-8"</span>/&gt;</span>
-        <span class="tag">&lt;/<span class="title">jdbc:initialize-database</span>&gt;</span>
-    <span class="tag">&lt;/<span class="title">beans</span>&gt;</span>
-</code></pre>
-
-    
-  </section>
-  <footer>
-    
-    <div class="clearfix"></div>
-    
-      <div class="alignleft widget">
-        
-        
-          <time datetime="2013-05-09T02:54:01.000Z"><a href="/2013/05/09/H2-数据库使用/">May 9 2013</a></time>
-        
-        
-        
-  
-  <a href="/tags/java/">#java</a>
-
-      </div>
-      
-        <div class="alignright">
-          <a href="/2013/05/09/H2-数据库使用/#more" class="more-link">Read More</a>
-        </div>
-      
-    
-    <div class="clearfix"></div>
-  </footer>
-</article>
-
-
-  
-    <article class="post">
-  <header>
-    
-  
-    <h1 class="title"><a href="/2013/05/09/2013-05-09-spring-测试开发/">spring 测试开发</a></h1>
-  
-
-    
-  </header>
-  <section class="entry">
-    
-      <p>1 使用spring3.2，shiro作为权限管理的框架，在做junit单元测试时，遇到问题</p>
-<pre><code><span class="transposed_variable">org.</span><span class="transposed_variable">apache.</span><span class="transposed_variable">shiro.</span>UnavailableSecurityManagerException: No SecurityManager accessible to the calling code, either bound to the <span class="transposed_variable">org.</span><span class="transposed_variable">apache.</span><span class="transposed_variable">shiro.</span><span class="transposed_variable">util.</span>ThreadContext or as a vm static <span class="transposed_variable">singleton.</span>  This is an invalid application <span class="transposed_variable">configuration.</span>
-</code></pre>
-<p>解决办法：
-写一个shiro的test类</p>
-<figure class="highlight lang-java"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-</pre></td><td class="code"><pre>
-<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShiroTestUtils</span> {</span>
-
-	<span class="keyword">private</span> <span class="keyword">static</span> ThreadState threadState;
-
-	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> mockSubject(Object principal) {
-		Subject subject = Mockito.mock(Subject.class);
-		Mockito.when(subject.isAuthenticated()).thenReturn(<span class="keyword">true</span>);
-		Mockito.when(subject.getPrincipal()).thenReturn(principal);
-
-		bindSubject(subject);
-	}
-
-	<span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">void</span> bindSubject(Subject subject) {
-		clearSubject();
-		threadState = <span class="keyword">new</span> SubjectThreadState(subject);
-		threadState.bind();
-	}
-
-	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> clearSubject() {
-		<span class="keyword">if</span> (threadState != <span class="keyword">null</span>) {
-			threadState.clear();
-			threadState = <span class="keyword">null</span>;
-		}
-	}
-}
-
-</pre></td></tr></table></figure>
-
-<p>在对controller测试时，可以很方便的绑定一个shiro的subject，测试登陆用户和普通用户</p>
-<figure class="highlight lang-java"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-</pre></td><td class="code"><pre>
-<span class="annotation">@RunWith</span>(SpringJUnit4ClassRunner.class)
-<span class="annotation">@WebAppConfiguration</span>(value = <span class="string">"WebContent"</span>)
-<span class="annotation">@ContextConfiguration</span>(locations = <span class="string">"classpath:resource/applicationContext-test.xml"</span>)
-<span class="annotation">@TransactionConfiguration</span>
-<span class="annotation">@ActiveProfiles</span>(value = ActiveProfilesEnv.TEST)
-<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebControllerTest</span> {</span>
-
-	<span class="annotation">@Autowired</span> <span class="keyword">private</span> WebApplicationContext webApplicationContext;
-	
-	<span class="keyword">private</span> MockMvc mockMvc;
-	
-	<span class="annotation">@Before</span>
-	<span class="keyword">public</span> <span class="keyword">void</span> setup(){
-		<span class="keyword">this</span>.mockMvc = webAppContextSetup(<span class="keyword">this</span>.webApplicationContext).build();
-		System.out.println(mockMvc);
-	}
-	
-	<span class="annotation">@Test</span>
-	<span class="keyword">public</span> <span class="keyword">void</span> testShow() {
-		<span class="keyword">try</span> {
-			ShiroTestUtils.mockSubject(XXX);
-			mockMvc.perform(get(<span class="string">"/mvc"</span>)).andDo(print());
-		} <span class="keyword">catch</span> (Exception e) {
-			System.out.println(e);
-		}
-	}
-
-}
-</pre></td></tr></table></figure>
-
-<p>2 使用<code>annotaion</code> 方式来ComponentScan</p>
-<pre><code>    <span class="variable">@ComponentScan</span>(basePackages = {<span class="string">"com.github"</span>}, excludeFilters = {<span class="variable">@ComponentScan</span>.<span class="constant">Filter</span>(<span class="constant">Configuration</span>.<span class="keyword">class</span>)} )
-</code></pre>
-<p>在进行测试的时候会出现bean还是没有注入的问题。</p>
-<blockquote>
-<p>解决办法：在application-xx.xml文件中配置即有效</p>
-</blockquote>
-<pre><code><span class="tag">&lt;<span class="title">context:component-scan</span> <span class="attribute">base-package</span>=<span class="value">"com.github"</span>&gt;</span><span class="tag">&lt;/<span class="title">context:component-scan</span>&gt;</span>
-</code></pre>
-<blockquote>
-<p>猜想
-使用java的annotation替换xml中bean的配置，应该和xml 中bean的初始化顺序有关系</p>
-</blockquote>
-<p>spring项目测试流程</p>
-<p>1 单元测试</p>
-<p>2 功能测试</p>
-<p>3 集成测试</p>
-<p>难点：</p>
-<p>如何伪造数据？</p>
-<p>构想：</p>
-<p>1 写一个字典类，随机生成有用文本，后端测试时根据后端的domain生成对应的sql，插入到数据库中。前端测试，写好对应的数据结构，按照数据结构，从随机字典中。生成数据</p>
-
-    
-  </section>
-  <footer>
-    
-    <div class="clearfix"></div>
-    
-      <div class="alignleft widget">
-        
-        
-          <time datetime="2013-05-09T02:54:01.000Z"><a href="/2013/05/09/2013-05-09-spring-测试开发/">May 9 2013</a></time>
-        
-        
-        
-  
-  <a href="/tags/java/">#java</a>
-
-      </div>
-      
-        <div class="alignright">
-          <a href="/2013/05/09/2013-05-09-spring-测试开发/#more" class="more-link">Read More</a>
-        </div>
-      
-    
-    <div class="clearfix"></div>
-  </footer>
-</article>
-
-
-  
-
-  
-<nav id="pagination">
-  
-  
-    <a href="/archives/2013/page/2/" class="alignright next">Next</a>
-  
-  <div class="clearfix"></div>
-</nav>
-
+<section id="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
 
     </section>
     <footer id="footer" class="clearfix footer"><div class="alignleft">
@@ -1098,7 +904,7 @@ var disqus_shortname = 'louise';
   var dsq = document.createElement('script');
   dsq.type = 'text/javascript';
   dsq.async = true;
-  dsq.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+  dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
   (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 }());
 </script>
